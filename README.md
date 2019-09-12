@@ -8,14 +8,18 @@ La motivación de hacer esta aplicación era por la necesidad de realizar muchas
 
 ### Requisitos ###
 
-* Java 5
+* Java 11
+
+### Changelog ###
+
+* 2.0.0
+    * Migracion a Java 11.
+    * Refactorización sencilla del código. 
 
 ### ToDo ###
 
-* Migracion a Java 11.
 * Integracion con Maven.
 * Look & Feel del sistema operativo en el que corrá.
-* Refactorización sencilla del código. 
 
 ### Licencia ### 
 
