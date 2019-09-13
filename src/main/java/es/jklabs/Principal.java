@@ -4,6 +4,11 @@ package es.jklabs;/*
  * Created on 8 de septiembre de 2005, 13:41
  */
 
+import es.jklabs.gui.dialgos.Acercade;
+import es.jklabs.gui.utilidades.Growls;
+import es.jklabs.utilidades.Logger;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
@@ -20,7 +25,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form es.jklabs.Principal
      */
-    public Principal() {
+    private Principal() {
         initComponents();
     }
 
@@ -28,7 +33,16 @@ public class Principal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> new Principal().setVisible(true));
+        Logger.eliminarLogsVacios();
+        Logger.init();
+        try {
+            Growls.init();
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            java.awt.EventQueue.invokeLater(() -> new Principal().setVisible(true));
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
+                UnsupportedLookAndFeelException e) {
+            Logger.error("Cargar el LookAndFeel del S.O", e);
+        }
     }
 
     /**
