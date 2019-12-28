@@ -195,3 +195,10 @@ Sera borrado src/main/java/Acercade.form
 Sera borrado src/main/java/Principal.form
 Sera borrado src/main/resources/
 Sera borrado src/test/
+/.idea/
+/nbproject/
+/.classpath
+/.project
+/build.xml
+/MCD Java.iml
+/manifest.mf
