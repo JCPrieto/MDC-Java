@@ -151,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_NuevoActionPerformed
 
     private void AcercaActionPerformed() {//GEN-FIRST:event_AcercaActionPerformed
-        Acercade acerca1 = new Acercade(new javax.swing.JFrame(), true);
+        Acercade acerca1 = new Acercade(new javax.swing.JFrame());
         acerca1.setVisible(true);
     }//GEN-LAST:event_AcercaActionPerformed
 

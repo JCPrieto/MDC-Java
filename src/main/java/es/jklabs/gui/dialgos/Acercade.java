@@ -27,9 +27,46 @@ public class Acercade extends javax.swing.JDialog {
     /**
      * Creates new form es.jklabs.Acercade
      */
-    public Acercade(java.awt.Frame parent, boolean modal) {
+    public Acercade(java.awt.Frame parent) {
         super(parent, Mensajes.getMensaje("acerca.de"), true);
         initComponents();
+    }
+
+    private static JLabel getJLabel() {
+        JLabel jLabelMyMail = new JLabel("JuanC.Prieto.Silos@gmail.com", JLabel.LEFT);
+        jLabelMyMail.setAlignmentX(CENTER_ALIGNMENT);
+        jLabelMyMail.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().browse(new URI(
+                            "mailto:JuanC.Prieto.Silos@gmail.com?subject=M.C.D.%20Java"));
+                } catch (IOException | URISyntaxException e1) {
+                    Growls.mostrarError("acerca.de", "app.envio.correo", e1);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                jLabelMyMail.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                jLabelMyMail.setCursor(null);
+            }
+        });
+        return jLabelMyMail;
     }
 
     /**
@@ -65,39 +102,7 @@ public class Acercade extends javax.swing.JDialog {
         jLabelMyWeb.addMouseListener(new UrlMouseListener(jLabelMyWeb, "https://jcprieto.tk"));
         cns.gridx = 1;
         panel.add(jLabelMyWeb, cns);
-        JLabel jLabelMyMail = new JLabel("JuanC.Prieto.Silos@gmail.com", JLabel.LEFT);
-        jLabelMyMail.setAlignmentX(CENTER_ALIGNMENT);
-        jLabelMyMail.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Desktop.getDesktop().browse(new URI(
-                            "mailto:JuanC.Prieto.Silos@gmail.com?subject=M.C.D.%20Java"));
-                } catch (IOException | URISyntaxException e1) {
-                    Growls.mostrarError("acerca.de", "app.envio.correo", e1);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                jLabelMyMail.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                jLabelMyMail.setCursor(null);
-            }
-        });
+        JLabel jLabelMyMail = getJLabel();
         cns.gridx = 2;
         panel.add(jLabelMyMail, cns);
         final JLabel jLabelPoweredBy = new JLabel(Mensajes.getMensaje("powered.by"), JLabel.LEFT);
@@ -106,7 +111,7 @@ public class Acercade extends javax.swing.JDialog {
         yPosition++;
         cns.gridy = yPosition++;
         panel.add(jLabelPoweredBy, cns);
-        addPowered(panel, cns, yPosition++, "Apache Commons Lang", "http://commons.apache.org/proper/commons-lang");
+        addPowered(panel, cns, yPosition++);
         JLabel jLabelLicense = new JLabel
                 ("<html><i>Esta obra está bajo una licencia de Creative Commons " +
                         "Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional</i><html>", new ImageIcon(Objects
@@ -126,24 +131,20 @@ public class Acercade extends javax.swing.JDialog {
         super.pack();
     }//GEN-END:initComponents
 
-    private void addPowered(JPanel panel, GridBagConstraints cns, int y, String titulo, String url) {
-        JLabel jLabelTitulo = new JLabel("<html><b>" + titulo + "</b></html>", JLabel.LEFT);
-        if (url != null) {
-            jLabelTitulo.addMouseListener(new UrlMouseListener(jLabelTitulo, url));
-        }
+    private void addPowered(JPanel panel, GridBagConstraints cns, int y) {
+        JLabel jLabelTitulo = new JLabel("<html><b>" + "Apache Commons Lang" + "</b></html>", JLabel.LEFT);
+        jLabelTitulo.addMouseListener(new UrlMouseListener(jLabelTitulo, "http://commons.apache.org/proper/commons-lang"));
         cns.insets = new Insets(3, 10, 3, 10);
         cns.gridx = 0;
         cns.gridy = y;
         cns.gridwidth = 1;
         panel.add(jLabelTitulo, cns);
-        if (url != null) {
-            JLabel jLabelUrl = new JLabel(url, JLabel.LEFT);
-            jLabelUrl.addMouseListener(new UrlMouseListener(jLabelUrl, url));
-            cns.gridx = 1;
-            cns.gridy = y;
-            cns.gridwidth = 2;
-            panel.add(jLabelUrl, cns);
-        }
+        JLabel jLabelUrl = new JLabel("http://commons.apache.org/proper/commons-lang", JLabel.LEFT);
+        jLabelUrl.addMouseListener(new UrlMouseListener(jLabelUrl, "http://commons.apache.org/proper/commons-lang"));
+        cns.gridx = 1;
+        cns.gridy = y;
+        cns.gridwidth = 2;
+        panel.add(jLabelUrl, cns);
     }
 
     private void pressAceptar() {//GEN-FIRST:event_aceptarActionPerformed
