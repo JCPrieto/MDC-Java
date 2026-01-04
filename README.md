@@ -11,7 +11,7 @@ En cualquier caso, en Java 8 debería de compilar ya que lo unico que he actuali
 
 ### Requisitos ###
 
-* Java 11
+* Java 21
 * LibNotify (Para las notificaciones en Linux)
 
 ### Ejecución ###
@@ -28,6 +28,10 @@ En cualquier caso, en Java 8 debería de compilar ya que lo unico que he actuali
     * Apache Commons Lang http://commons.apache.org/proper/commons-lang
 
 ### Changelog ###
+
+* 2.0.2
+  * Actualización de seguridad.
+  * Migración a Java 21
 
 * 2.0.1
   * Actualización de seguridad.
