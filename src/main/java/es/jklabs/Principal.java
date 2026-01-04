@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Principal extends javax.swing.JFrame {
 
     private javax.swing.JButton nuevo;
-    private java.awt.TextField resultado;
+    private javax.swing.JTextField resultado;
     private javax.swing.JTextField a;
     private javax.swing.JTextField b;
 
@@ -61,7 +61,7 @@ public class Principal extends javax.swing.JFrame {
         javax.swing.JButton run = new javax.swing.JButton();
         nuevo = new javax.swing.JButton();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
-        resultado = new java.awt.TextField();
+        resultado = new javax.swing.JTextField();
         javax.swing.JMenuBar jMenuBar1 = new javax.swing.JMenuBar();
         javax.swing.JMenu menu = new javax.swing.JMenu();
         javax.swing.JMenuItem salir = new javax.swing.JMenuItem();
@@ -94,7 +94,7 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3);
 
-        run.setIcon(new javax.swing.ImageIcon("C:\\!conMania Collection\\Science\\Calculator.JPG"));
+        run.setIcon(UIManager.getIcon("OptionPane.informationIcon"));
         run.setMnemonic('C');
         run.setText("Calcular");
         run.addActionListener(evt -> RunActionPerformed());
@@ -102,7 +102,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(run);
 
         nuevo.setMnemonic('N');
-        nuevo.setText("nuevo M.C.D.");
+        nuevo.setText("Nuevo M.C.D.");
         nuevo.setEnabled(false);
         nuevo.addActionListener(evt -> NuevoActionPerformed());
 
@@ -161,14 +161,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void RunActionPerformed() {//GEN-FIRST:event_RunActionPerformed
         try {
-            int x;
-            int y;
+            int x = parsePositive(a.getText());
+            int y = parsePositive(b.getText());
             int c;
             int r;
-            String aux = a.getText();
-            x = Integer.parseInt(aux);
-            aux = b.getText();
-            y = Integer.parseInt(aux);
             if (y > x) {
                 int z;
                 z = x;
@@ -185,11 +181,27 @@ public class Principal extends javax.swing.JFrame {
             }
             resultado.setText(String.valueOf(y));
             nuevo.setEnabled(true);
-        } catch (java.lang.NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             resultado.setText("Error");
             nuevo.setEnabled(false);
+            Growls.mostrarError("datos.invalidos", e);
         }
     }//GEN-LAST:event_RunActionPerformed
+
+    private int parsePositive(String text) {
+        if (text == null) {
+            throw new IllegalArgumentException("Input is null");
+        }
+        String trimmed = text.trim();
+        if (trimmed.isEmpty()) {
+            throw new IllegalArgumentException("Input is blank");
+        }
+        int value = Integer.parseInt(trimmed);
+        if (value <= 0) {
+            throw new IllegalArgumentException("Input must be positive");
+        }
+        return value;
+    }
     // End of variables declaration//GEN-END:variables
 
 }
