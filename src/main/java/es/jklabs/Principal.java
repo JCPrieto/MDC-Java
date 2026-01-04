@@ -6,10 +6,14 @@ package es.jklabs;/*
 
 import es.jklabs.gui.dialgos.Acercade;
 import es.jklabs.gui.utilidades.Growls;
+import es.jklabs.utilidades.Actualizaciones;
+import es.jklabs.utilidades.Constantes;
 import es.jklabs.utilidades.Logger;
+import es.jklabs.utilidades.Mensajes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -21,12 +25,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField resultado;
     private javax.swing.JTextField a;
     private javax.swing.JTextField b;
+    private javax.swing.JMenuItem actualizar;
+    private Actualizaciones.ReleaseInfo ultimaRelease;
 
     /**
      * Creates new form es.jklabs.Principal
      */
     private Principal() {
         initComponents();
+        initActualizaciones();
     }
 
     /**
@@ -68,6 +75,7 @@ public class Principal extends javax.swing.JFrame {
         javax.swing.JMenu ayuda = new javax.swing.JMenu();
         // Variables declaration - do not modify//GEN-BEGIN:variables
         javax.swing.JMenuItem acerca = new javax.swing.JMenuItem();
+        actualizar = new javax.swing.JMenuItem();
 
         getContentPane().setLayout(new java.awt.GridLayout(2, 1));
 
@@ -136,6 +144,15 @@ public class Principal extends javax.swing.JFrame {
         ayuda.add(acerca);
 
         jMenuBar1.add(ayuda);
+        jMenuBar1.add(Box.createHorizontalGlue());
+
+        actualizar.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource
+                ("img/icons/update.png"))));
+        actualizar.setToolTipText(Mensajes.getMensaje("update.tooltip"));
+        actualizar.setText(Mensajes.getMensaje("update.menu"));
+        actualizar.setVisible(false);
+        actualizar.addActionListener(evt -> ActualizarActionPerformed());
+        jMenuBar1.add(actualizar);
 
         setJMenuBar(jMenuBar1);
 
@@ -187,6 +204,66 @@ public class Principal extends javax.swing.JFrame {
             Growls.mostrarError("datos.invalidos", e);
         }
     }//GEN-LAST:event_RunActionPerformed
+
+    private void ActualizarActionPerformed() {//GEN-FIRST:event_ActualizarActionPerformed
+        if (ultimaRelease == null || ultimaRelease.getZipUrl() == null) {
+            Growls.mostrarError("actualizacion.no.disponible", new IllegalStateException("No update data"));
+            return;
+        }
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle(Mensajes.getMensaje("update.select.folder"));
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        int result = chooser.showOpenDialog(this);
+        if (result != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        Path targetDir = chooser.getSelectedFile().toPath();
+        actualizar.setEnabled(false);
+        new SwingWorker<Path, Void>() {
+            @Override
+            protected Path doInBackground() throws Exception {
+                return Actualizaciones.downloadReleaseZip(ultimaRelease.getZipUrl(), targetDir);
+            }
+
+            @Override
+            protected void done() {
+                actualizar.setEnabled(true);
+                try {
+                    Path downloaded = get();
+                    String mensaje = String.format(Mensajes.getMensaje("update.download.ok"), downloaded.toString());
+                    JOptionPane.showMessageDialog(Principal.this, mensaje, Constantes.NOMBRE_APP, JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    Growls.mostrarError("actualizacion.descarga", e);
+                }
+            }
+        }.execute();
+    }//GEN-LAST:event_ActualizarActionPerformed
+
+    private void initActualizaciones() {
+        new SwingWorker<Actualizaciones.ReleaseInfo, Void>() {
+            @Override
+            protected Actualizaciones.ReleaseInfo doInBackground() throws Exception {
+                return Actualizaciones.fetchLatestRelease();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    Actualizaciones.ReleaseInfo releaseInfo = get();
+                    if (releaseInfo == null || releaseInfo.getZipUrl() == null) {
+                        return;
+                    }
+                    if (Actualizaciones.isNewer(releaseInfo.getVersion(), Constantes.VERSION)) {
+                        ultimaRelease = releaseInfo;
+                        actualizar.setVisible(true);
+                    }
+                } catch (Exception e) {
+                    Logger.error("actualizacion.comprobar", e);
+                }
+            }
+        }.execute();
+    }
 
     private int parsePositive(String text) {
         if (text == null) {

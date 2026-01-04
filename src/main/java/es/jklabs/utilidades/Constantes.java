@@ -13,6 +13,8 @@ public class Constantes {
 
     public static final String NOMBRE_APP = "M.C.D. Java";
     public static final String VERSION = resolveVersion();
+    public static final String GITHUB_OWNER = "JCPrieto";
+    public static final String GITHUB_REPO = "MDC-Java";
 
     private static final String GROUP_ID = "es.jklabs.desktop";
     private static final String ARTIFACT_ID = "MCDJava";
