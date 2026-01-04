@@ -6,7 +6,7 @@
 
     <groupId>es.jklabs.desktop</groupId>
     <artifactId>MCDJava</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -62,6 +62,9 @@
                                 es.jklabs.Principal
                             </mainClass>
                         </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
