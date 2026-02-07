@@ -40,5 +40,5 @@ entry in the PR description.
 
 ## Configuration & Dependencies
 
-The project targets Java 11. Linux notifications depend on LibNotify. Dependencies are managed in `pom.xml` (currently
+The project targets Java 21. Linux notifications depend on LibNotify. Dependencies are managed in `pom.xml` (currently
 Apache Commons Lang); update versions there and rebuild with Maven when changing libraries.
