@@ -44,11 +44,10 @@ public class Logger {
     }
 
     private static void eliminarLogsVacios(File file) {
-        try (FileReader fr = new FileReader(file)) {
-            BufferedReader br = new BufferedReader(fr);
+        try (FileReader fr = new FileReader(file);
+             BufferedReader br = new BufferedReader(fr)) {
             String linea = br.readLine();
             if (linea == null) {
-                br.close();
                 Files.delete(file.toPath());
             }
         } catch (IOException e) {
