@@ -132,19 +132,37 @@ public class Acercade extends javax.swing.JDialog {
     }//GEN-END:initComponents
 
     private void addPowered(JPanel panel, GridBagConstraints cns, int y) {
-        JLabel jLabelTitulo = new JLabel("<html><b>" + "Apache Commons Lang" + "</b></html>", JLabel.LEFT);
-        jLabelTitulo.addMouseListener(new UrlMouseListener(jLabelTitulo, "http://commons.apache.org/proper/commons-lang"));
+        JPanel libraries = new JPanel();
+        libraries.setLayout(new BoxLayout(libraries, BoxLayout.Y_AXIS));
+        libraries.add(createLibraryLabel("Apache Commons Lang",
+                "https://commons.apache.org/proper/commons-lang/"));
+        libraries.add(createLibraryLabel("Two Slices",
+                "https://github.com/sshtools/two-slices"));
         cns.insets = new Insets(3, 10, 3, 10);
         cns.gridx = 0;
         cns.gridy = y;
         cns.gridwidth = 1;
-        panel.add(jLabelTitulo, cns);
-        JLabel jLabelUrl = new JLabel("http://commons.apache.org/proper/commons-lang", JLabel.LEFT);
-        jLabelUrl.addMouseListener(new UrlMouseListener(jLabelUrl, "http://commons.apache.org/proper/commons-lang"));
+        panel.add(libraries, cns);
+
+        JPanel urls = new JPanel();
+        urls.setLayout(new BoxLayout(urls, BoxLayout.Y_AXIS));
+        urls.add(createUrlLabel("https://commons.apache.org/proper/commons-lang/"));
+        urls.add(createUrlLabel("https://github.com/sshtools/two-slices"));
         cns.gridx = 1;
-        cns.gridy = y;
         cns.gridwidth = 2;
-        panel.add(jLabelUrl, cns);
+        panel.add(urls, cns);
+    }
+
+    private JLabel createLibraryLabel(String name, String url) {
+        JLabel label = new JLabel("<html><b>" + name + "</b></html>", JLabel.LEFT);
+        label.addMouseListener(new UrlMouseListener(label, url));
+        return label;
+    }
+
+    private JLabel createUrlLabel(String url) {
+        JLabel label = new JLabel(url, JLabel.LEFT);
+        label.addMouseListener(new UrlMouseListener(label, url));
+        return label;
     }
 
     private void pressAceptar() {//GEN-FIRST:event_aceptarActionPerformed

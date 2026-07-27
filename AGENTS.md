@@ -41,6 +41,6 @@ from `target/`; include `target/libs` dependencies when distributing outside Mav
 
 ## Configuration & Dependencies
 
-The project targets Java 21. Linux notifications depend on LibNotify. Dependencies are managed in `pom.xml` (currently
-Apache Commons Lang); update versions there and rebuild with Maven when changing libraries. SonarQube analysis uses the
+The project targets Java 21. Desktop notifications use Two Slices with D-Bus support on Linux. Dependencies are managed
+in `pom.xml`; update versions there and rebuild with Maven when changing libraries. SonarQube analysis uses the
 `SONAR_TOKEN` GitHub Actions secret and is intentionally allowed to fail without blocking a release.

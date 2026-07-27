@@ -12,7 +12,6 @@ En cualquier caso, en Java 8 debería de compilar ya que lo unico que he actuali
 ### Requisitos ###
 
 * Java 21
-* LibNotify (Para las notificaciones en Linux)
 
 ### Ejecución ###
 
@@ -26,6 +25,7 @@ En cualquier caso, en Java 8 debería de compilar ya que lo unico que he actuali
 
 * Librerias:
     * Apache Commons Lang http://commons.apache.org/proper/commons-lang
+  * Two Slices https://github.com/sshtools/two-slices
 
 ### Changelog ###
 
