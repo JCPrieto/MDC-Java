@@ -34,11 +34,13 @@ screenshots for UI changes. Link any related issues or changelog entries.
 
 ## Release Notes & Artifacts
 
-Bump the version in `pom.xml` before release. Build with `mvn clean package`, then publish the jar from `target/` (and
-its `target/libs` dependencies if distributing outside Maven). If you update the GUI or behavior, add a short changelog
-entry in the PR description.
+Bump the version in `pom.xml` before release and add an entry to `CHANGELOG.md`. A push to `master`
+triggers `.github/workflows/release.yml`: unit tests must pass, the non-blocking SonarQube analysis runs, Maven builds
+the package, and GitHub publishes a release when the version tag does not already exist. Release artifacts are taken
+from `target/`; include `target/libs` dependencies when distributing outside Maven.
 
 ## Configuration & Dependencies
 
 The project targets Java 21. Linux notifications depend on LibNotify. Dependencies are managed in `pom.xml` (currently
-Apache Commons Lang); update versions there and rebuild with Maven when changing libraries.
+Apache Commons Lang); update versions there and rebuild with Maven when changing libraries. SonarQube analysis uses the
+`SONAR_TOKEN` GitHub Actions secret and is intentionally allowed to fail without blocking a release.

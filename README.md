@@ -29,22 +29,7 @@ En cualquier caso, en Java 8 debería de compilar ya que lo unico que he actuali
 
 ### Changelog ###
 
-* 2.0.3
-  * Refactor en `Logger`: cierre correcto de recursos con `try-with-resources`.
-  * Actualización de `maven-compiler-plugin` a `3.15.0`.
-
-* 2.0.2
-  * Actualización de seguridad.
-  * Migración a Java 21
-
-* 2.0.1
-  * Actualización de seguridad.
-
-* 2.0.0
-    * Migracion a Java 11.
-    * Refactorización sencilla del código. 
-    * Integracion con Maven.
-    * Look & Feel del sistema operativo en el que corrá.
+Consulta el historial de cambios en [CHANGELOG.md](CHANGELOG.md).
 
 ### Licencia ### 
 
