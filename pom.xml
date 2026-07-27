@@ -6,7 +6,7 @@
 
     <groupId>es.jklabs.desktop</groupId>
     <artifactId>MCDJava</artifactId>
-    <version>2.0.3</version>
+    <version>2.0.4</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>21</maven.compiler.target>
         <maven.compiler.source>21</maven.compiler.source>
+        <sonar.organization>jcprieto</sonar.organization>
     </properties>
 
     <build>
@@ -52,7 +53,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.5.1</version>
                 <configuration>
                     <archive>
                         <manifest>

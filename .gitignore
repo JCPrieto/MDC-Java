@@ -202,3 +202,4 @@ Sera borrado src/test/
 /build.xml
 /MCD Java.iml
 /manifest.mf
+.codex/*
