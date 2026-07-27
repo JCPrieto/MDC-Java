@@ -1,4 +1,4 @@
-# MDC-Java #
+# MCD-Java #
 
 Esta aplicación la implementé en los primera años de la carrera y la subo a Github para que no se pierda.
 
